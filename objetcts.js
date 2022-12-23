@@ -47,4 +47,6 @@ const bibliotecaFiltrada = biblioteca.filter((valor) => valor.preco > 10)
 console.log(biblioteca)
 console.log(bibliotecaFiltrada)
 
-// - somar o valor total em estoque. Ou seja, a soma de todos os preços de livros
+// - somar o valor total em estoque. Ou seja, a soma de todos os preços de livros;
+
+const total = biblioteca.reduce((acumulador, valor) => acumulador += valor.preco, 0)
