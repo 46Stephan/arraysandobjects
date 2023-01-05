@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-Br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <style>
+    .container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 500px;
+      height: 500px;
+      border: 1px solid black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .button {
+      width: 150px;
+      height: 20px;
+      border: 1px solid black;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="button" id="buttonAdd" onClick="addPessoa()">
+      Criar contato
+    </div>
+    <div class="button" id="buttonList" onClick="listarPessoas()">
+      Listar contatos
+    </div>
+    <div class="button" id="buttonUpdate" onClick="atualizarPessoa()">
+      Atualizar contato
+    </div>
+    <div class="button" id="buttonDelete" onClick="deletarPessoa()">
+      Deletar contato
+    </div>
+  </div>
+  <script>
+    let data = [{ id: 0, nome: "stephan", telefone: "3690" }];
+
+    function listarPessoas() {
+      //limpar console.log
+      console.clear();
+      //mapeando o array
+      data.map((pessoa) => {
+        console.log(
+          `id: ${pessoa.id} \n nome: ${pessoa.nome} \n telefone: ${pessoa.telefone} \n ---`
+        );
+      });
+    }
+
+    function addPessoa() {
+      //pegando valores do usuario
+      const nome = prompt("Digite o nome");
+      const telefone = prompt("Digite o telefone");
+
+      //validando se nao estao vazios
+      if (!nome || !telefone) {
+        return alert("Nome e telefone devem ser inseridos");
+      }
+
+      //verificando se existe dentro do array
+      const findTelefone = data.find(
+        (pessoa) => pessoa.telefone === telefone
+      );
+
+      //validando caso nao exista
+      if (findTelefone) {
+        return alert("Numero ja cadastrado");
+      }
+
+      //povoando novo objeto para inserir no array
+      const objToAdd = {
+        id: Math.floor(Math.random() * 20),
+        nome,
+        telefone,
+      };
+
+      //inserindo obj no array
+      data.push(objToAdd);
+
+      //listando novamente
+      listarPessoas();
+    }
+
+    function atualizarPessoa() {
+      //pegando valores do usuario
+      const id = parseInt(prompt("Digite o id"));
+
+      //verificando se existe dentro do array
+      const findId = data.find((pessoa) => pessoa.id === id);
+      if (!findId) {
+        return alert("Usuario nao encontrado");
+      }
+      //pegando valores do usuario
+      const novoNome = prompt("Digite o nome");
+      const novoTelefone = prompt("Digite o telefone");
+
+      //alterando valores dentro do obj
+      findId.nome = novoNome;
+      findId.telefone = novoTelefone;
+
+      //informando o usuario
+      alert(`Usuario com id: ${findId.id} atualizado com sucesso`);
+
+      //listando novamente
+      listarPessoas();
+    }
+
+    function deletarPessoa() {
+      //pegando valores do usuario
+      const id = parseInt(prompt("Digite o id"));
+
+      //verificando se existe dentro do array
+      const findId = data.some((pessoa) => pessoa.id === id);
+
+      //validando caso nao exista
+      if (!findId) {
+        return alert("Usuario nao encontrado");
+      }
+
+      //removendo do array
+      data.splice(findId, 1);
+
+      //alertando o usuario
+      alert("Usuario deletado com sucesso");
+
+      //listando novamente
+      listarPessoas();
+
+
+      //Criar uma variavel global para armazenar a lista de contatos;
+      //Criar uma função para adicionar um novo contato. Essa função deverá ser executada ao clique de um botão no html;
+      //Todo contato deverá ter id, nome e telefone. O identificador do contato deve ser único (não pode repetir) assim como o telefone informado. Antes de adicionar na lista deve ser verificado se o telefone já foi cadastrado anteriormente. Se já existir, informar ao usuario "Este telefone já foi cadastrado" e não adiciona-lo na lista;
+      //Criar uma função para listar todos os contatos cadastrados. Essa função deverá ser executada ao clique de um botão no html;
+      //Criar uma função para atualizar um contato existente na lista. Essa função deverá ser executada ao clique de um botão no html. O usuário deverá informar o id que será atualizado e os novos dados de nome e telefone para este registro. Se o id não existir, a lista não deverá sofrer modificações;
+      //Criar uma função para deletar um contato existente na lista. Essa função deverá ser executada ao clique de um botão no html. O usuário deverá informar o id que será deletado. Se o id não existir, a lista não deverá sofrer modificações;
+
+    }
+  </script>
+</body>
+
+</html>
